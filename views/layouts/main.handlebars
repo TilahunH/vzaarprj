@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vzaar Demo</title>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.min.js"></script>
+    <style>
+        .progress { display: none; }
+    </style>
+    <script>
+        $(document).ready(function(ev) {
+           
+
+$("#grid-data").bootgrid({
+    ajax: true,
+    url: "/api/videos",
+    method: "GET",
+    formatters: {
+        "commands": function(column, row)
+        {
+            //return "<a href=\"#\">" + column.id + ": " + row.id + "</a>";
+            return `<a target="_top"  href="/play?id=` + row.id + `">
+  <img src="` +  row.thumbnail_url + `" class="img-circle" >;
+</a>`
+            return "<img src=\"" + row.thumbnail_url + "\" class=\"img-circle\" alt=\"Cinque Terre\">";
+        }
+    }
+});
+
+    $("#uploadx").click( (function(ev) {
+        ev.preventDefault();
+        var fd = new FormData();
+        fd.append('key',$('#key').val());
+        fd.append('AWSAccessKeyId',$('#AWSAccessKeyId').val());
+        fd.append('acl',$('#acl').val());
+        fd.append('policy',$('#policy').val());
+        fd.append('success_action_status',$('#success_action_status').val());
+        fd.append('signature',$('#signature').val());
+        fd.append('x-amz-meta-uploader',$('#x-amz-meta-uploader').val());
+        fd.append('file',$('#file')[0].files[0]);
+        $.ajax({
+            xhr: function() {
+                var progress = $('.progress'),
+                    xhr = $.ajaxSettings.xhr();
+
+                progress.show();
+
+                xhr.upload.onprogress = function(ev) {
+                    if (ev.lengthComputable) {
+                        var percentComplete = parseInt((ev.loaded / ev.total) * 100);
+                        progress.val(percentComplete);
+                        if (percentComplete === 100) {
+                            progress.hide().val(0);
+                        }
+                    }
+                }
+                return xhr;
+            },
+            url: 'https://{{bucket}}.s3.amazonaws.com/',
+            type: 'POST',
+            enctype: 'multipart/form-data',
+            data:fd,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data, status, xhr) {
+                process();
+            },
+            error: function(xhr, status, error) {
+                // ...
+            }
+       });
+    }));
+});
+function process(){
+    $.ajax({
+            url: window.location.origin + '/api/process',
+            type: 'POST',
+            data: {'guid':$('#guid').val(),'title':$('#ttlx').val()},
+            success: function(data, status, xhr) {
+                window.location.href=window.location.origin;
+            },
+            error: function(xhr, status, error) {
+                // ...
+            }
+       });
+    
+}
+        </script>
+</head>
+<body>
+ <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Demo Vzaar</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/">Home</a></li>
+              <li><a href="/upload">upload</a></li>
+             
+            </ul>
+            
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="container">
+        {{{body}}}
+      </div>
+
+    </div>
+    
+ 
+</body>
+</html>

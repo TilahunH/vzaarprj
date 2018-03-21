@@ -1,0 +1,35 @@
+<div class="col-sm-6 col-sm-offset-3">
+
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">Video Upload</div>
+      <div class="panel-body">
+        <form class="mb-4">
+          <div id="upload-form">
+            <input type="hidden" id="key" name="key" value="{{key}}">
+            <input type="hidden" id="AWSAccessKeyId" name="AWSAccessKeyId" value="{{access_key_id}}">
+            <input type="hidden" id="acl" name="acl" value="{{acl}}">
+            <input type="hidden" id="policy" name="policy" value="{{policy}}">
+            <input type="hidden" id="success_action_status" name="success_action_status" value="201">
+            <input type="hidden" id="signature" name="signature" value="{{signature}}">
+            <input type="hidden" id="x-amz-meta-uploader" name="x-amz-meta-uploader" value="trestles uploader">
+            <input type="hidden" name="guid" id="guid" value="{{guid}}">
+            <div class="form-group">
+              <label for="file">File to upload:</label>
+              <input type="file" name="file" class="form-control" id="file">
+            </div>
+            <div class="form-group">
+              <label for="ttlx">Title:</label>
+              <input type="text" name="ttlx" class="form-control" id="ttlx">
+            </div>
+            <button id="uploadx">Upload</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <progress class="progress" value="0" max="100"></progress>
+        </div>
+    </div>
+  </div>
+
+</div>

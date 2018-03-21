@@ -1,0 +1,17 @@
+{
+  "name": "awsvzar1",
+  "version": "1.0.0",
+  "description": "upload",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "postman-request": "^2.81.1-postman.4",
+    "request": "^2.83.0"
+  }
+}

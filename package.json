@@ -2,9 +2,10 @@
   "name": "awsvzar1",
   "version": "1.0.0",
   "description": "upload",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +14,17 @@
     "express-handlebars": "^3.0.0",
     "postman-request": "^2.81.1-postman.4",
     "request": "^2.83.0"
-  }
+  },
+  "engines": {
+    "node": "9.7.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TilahunH/vzaarprj.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TilahunH/vzaarprj/issues"
+  },
+  "homepage": "https://github.com/TilahunH/vzaarprj#readme"
 }
